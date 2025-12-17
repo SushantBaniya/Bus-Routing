@@ -19,9 +19,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Urban Bus Management",
-  description: "Dashboard for Urban Bus Management System",
-};
+  title: "Safe Yatra - Bus Management System",
+  description: "Comprehensive bus management and tracking system",
+}
 
 export default function RootLayout({
   children,

@@ -20,6 +20,7 @@ import BookingModal from '@/components/BookingModal'
 import { useToast } from "@/hooks/use-toast"
 import { showErrorToast } from "@/components/ui/toast"
 import { isValidFutureDate } from "@/lib/utils"
+import Contributors from '@/components/Contributors'
 
 export type BusResult = {
   id: number;
@@ -270,17 +271,17 @@ export default function LandingPage() {
   
   const socialLinks: SocialLink[] = [
     {
-      href: "https://twitter.com/swiftcommute",
+      href: "https://twitter.com/Safe Yatra",
       icon: <Twitter className="h-5 w-5" />,
       label: "Twitter"
     },
     {
-      href: "https://facebook.com/swiftcommute",
+      href: "https://facebook.com/Safe Yatra",
       icon: <Facebook className="h-5 w-5" />,
       label: "Facebook"
     },
     {
-      href: "https://instagram.com/swiftcommute",
+      href: "https://instagram.com/Safe Yatra",
       icon: <Instagram className="h-5 w-5" />,
       label: "Instagram"
     }
@@ -315,7 +316,7 @@ export default function LandingPage() {
             <div className="flex flex-col">
               <div className="flex items-center space-x-2">
                 <span className="text-2xl font-semibold italic bg-clip-text relative">
-                  Swift
+                  Safe
                   <svg 
                     className="absolute -bottom-1 left-0"
                     width="100%"
@@ -337,7 +338,7 @@ export default function LandingPage() {
                   </svg>
                 </span>
                 <span className="text-2xl font-semibold text-white">
-                  Commute
+                  Yatra
                 </span>
               </div>
             </div>
@@ -649,7 +650,7 @@ export default function LandingPage() {
         {/* Features Section */}
         <section id="features" className="py-24 bg-background/50 backdrop-blur-xl">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-16 text-center text-foreground">Why Choose Swift Commute?</h2>
+            <h2 className="text-4xl font-bold mb-16 text-center text-foreground">Why Choose Safe Yatra?</h2>
             <div className="grid gap-12 md:grid-cols-3">
               {features.map((feature, index) => (
                 <FeatureCard key={index} {...feature} />
@@ -662,9 +663,9 @@ export default function LandingPage() {
         <section id="about" className="py-24 bg-muted/50 backdrop-blur-xl">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-4xl font-bold mb-8 text-center text-foreground">About Swift Commute</h2>
+              <h2 className="text-4xl font-bold mb-8 text-center text-foreground">About Safe Yatra</h2>
               <p className="text-xl text-muted-foreground mb-12 leading-relaxed text-center">
-                Swift Commute is revolutionizing urban travel with our intelligent bus routing system. 
+                Safe Yatra is revolutionizing urban travel with our intelligent bus routing system. 
                 We&apos;re committed to making public transportation more efficient, accessible, and 
                 environmentally friendly for everyone.
               </p>
@@ -692,6 +693,7 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+        <Contributors />
       </main>
             
       {/* Footer */}
@@ -699,7 +701,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="grid gap-12 md:grid-cols-3">
             <div>
-              <h3 className="text-2xl font-semibold mb-6 text-foreground">Swift Commute</h3>
+              <h3 className="text-2xl font-semibold mb-6 text-foreground">Safe Yatra</h3>
               <p className="text-muted-foreground">Revolutionizing urban travel with intelligent bus routing.</p>
             </div>
             <div>
@@ -727,7 +729,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-border text-center text-muted-foreground">
-            <p>&copy; 2024 Swift Commute. All rights reserved.</p>
+            <p>&copy; 2024 Safe Yatra. All rights reserved.</p>
           </div>
         </div>
       </footer>

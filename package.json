@@ -1,7 +1,8 @@
 {
-  "name": "swiftcommute",
+  "name": "safeyatra",
   "version": "0.1.0",
   "private": true,
+  "description": "Safe Yatra - Comprehensive bus management and tracking system",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

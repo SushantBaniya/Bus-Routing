@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function ProfilePage() {
   const [name, setName] = useState('Depot Officer')
-  const [email, setEmail] = useState('officer@swiftcommute.com')
+  const [email, setEmail] = useState('officer@Safe Yatra.com')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()

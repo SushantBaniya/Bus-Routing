@@ -1,10 +1,10 @@
-# 🚌 SwiftCommute
+# 🚌 Safe Yatra
 
 <div align="center">
 
-![SwiftCommute Logo](./public/images/system_integration.png)
+![Safe Yatra Logo](./public/images/system_integration.png)
 
-### Streamline your bus management operations with SwiftCommute
+### Streamline your bus management operations with Safe Yatra
 
 [![Next.js](https://img.shields.io/badge/Next.js-13.0+-000000?style=for-the-badge&logo=next.js&logoColor=white&labelColor=black)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-18.0+-61DAFB?style=for-the-badge&logo=react&logoColor=black&labelColor=61DAFB)](https://reactjs.org/)
@@ -16,7 +16,7 @@
 
 ## 📋 Overview
 
-SwiftCommute is a comprehensive bus management system designed to optimize route planning, bus assignments, and passenger bookings. With an intuitive dashboard and powerful features, SwiftCommute empowers transport companies to enhance their operations and improve customer satisfaction.
+Safe Yatra is a comprehensive bus management system designed to optimize route planning, bus assignments, and passenger bookings. With an intuitive dashboard and powerful features, Safe Yatra empowers transport companies to enhance their operations and improve customer satisfaction.
 
 ## ✨ Features
 
@@ -59,8 +59,8 @@ SwiftCommute is a comprehensive bus management system designed to optimize route
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/swiftcommute.git
-   cd swiftcommute
+   git clone https://github.com/yourusername/Safe Yatra.git
+   cd Safe Yatra
    ```
 
 2. **Install dependencies**
@@ -113,6 +113,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 <div align="center">
 
-Made with ❤️ by SwiftCommute Team
+Made with ❤️ by Safe Yatra Team
 
 </div>
