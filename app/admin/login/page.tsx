@@ -2,115 +2,171 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useAuth } from "@/lib/auth"
-import { Loader2, Lock, User } from "lucide-react"
+import { Loader2, CheckCircle2 } from "lucide-react"
 
 export default function AdminLoginPage() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState("")
   const router = useRouter()
-  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError("")
+    
+    console.log("=== LOGIN ATTEMPT ===")
+    console.log("Username:", username)
+    console.log("Password:", password)
+    
     setLoading(true)
+    setError("")
 
-    try {
-      const success = await login(username, password, true)
-      if (success) {
-        router.push('/dashboard')
-      } else {
-        setError("Invalid username or password")
+    // Simple credential check
+    if (username === "admin" && password === "admin123") {
+      console.log("✅ Credentials valid!")
+      
+      // Save to localStorage
+      try {
+        localStorage.setItem('adminToken', 'mock-admin-token-12345')
+        localStorage.setItem('adminUser', JSON.stringify({
+          username: username,
+          role: 'admin',
+          loginTime: new Date().toISOString()
+        }))
+        console.log("✅ Saved to localStorage")
+      } catch (err) {
+        console.error("❌ localStorage error:", err)
       }
-    } catch (error) {
-      console.error('Login error:', error)
-      setError("An unexpected error occurred. Please try again.")
-    } finally {
+      
       setLoading(false)
+      setIsSuccess(true)
+      
+      console.log("⏳ Waiting 2 seconds before redirect...")
+      
+      // Redirect after 2 seconds
+      setTimeout(() => {
+        console.log("🔄 Redirecting to /dashboard")
+       router.push('/user/dashboard')
+      }, 2000)
+      
+    } else {
+      console.log("❌ Invalid credentials")
+      setLoading(false)
+      setError("Invalid username or password. Try admin/admin123")
     }
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen overflow-hidden bg-black">
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-black via-purple-900 to-black animate-gradient-xy"></div>
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative z-10"
-      >
-        <Card className="w-[400px] backdrop-blur-sm bg-black/40 border-purple-900/20 shadow-2xl">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold tracking-tight text-white">Admin Login</CardTitle>
-            <CardDescription className="text-gray-400">Enter your credentials to access the admin system</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="username" className="text-sm font-medium text-gray-300">Username</Label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={18} />
-                  <Input
-                    id="username"
-                    type="text"
-                    placeholder="Enter your username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                    className="pl-10 bg-black/50 border-purple-900/50 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500 transition-all duration-300"
-                  />
+    <div className="flex items-center justify-center min-h-screen bg-black">
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900 to-black animate-gradient-xy"></div>
+      <Card className="w-[400px] relative z-10 backdrop-blur-sm bg-black/40 border-purple-900/20 shadow-2xl overflow-hidden">
+        <AnimatePresence mode="wait">
+          {!isSuccess ? (
+            <motion.div key="form" exit={{ opacity: 0, scale: 0.95 }}>
+              <CardHeader>
+                <CardTitle className="text-white text-2xl font-bold">Admin Login</CardTitle>
+                <CardDescription className="text-gray-400">System Access Only</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <Input 
+                      placeholder="Admin Username" 
+                      value={username} 
+                      onChange={(e) => setUsername(e.target.value)} 
+                      required 
+                      className="bg-black/50 border-purple-900/50 text-white placeholder:text-gray-500"
+                    />
+                  </div>
+                  <div>
+                    <Input 
+                      type="password" 
+                      placeholder="Password" 
+                      value={password} 
+                      onChange={(e) => setPassword(e.target.value)} 
+                      required 
+                      className="bg-black/50 border-purple-900/50 text-white placeholder:text-gray-500"
+                    />
+                  </div>
+                  
+                  {error && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-400 text-sm"
+                    >
+                      {error}
+                    </motion.p>
+                  )}
+
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-green-600 hover:bg-green-700 text-white" 
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="animate-spin mr-2 h-4 w-4" />
+                        Authenticating...
+                      </>
+                    ) : (
+                      "Login"
+                    )}
+                  </Button>
+                </form>
+
+                {/* Test Credentials Display */}
+                <div className="mt-6 p-3 bg-zinc-900/50 rounded-lg border border-zinc-800">
+                  <p className="text-xs text-zinc-400 mb-2">Test Credentials:</p>
+                  <p className="text-xs text-green-500">Username: admin</p>
+                  <p className="text-xs text-green-500">Password: admin123</p>
                 </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium text-gray-300">Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={18} />
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="pl-10 bg-black/50 border-purple-900/50 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500 transition-all duration-300"
-                  />
+
+                {/* Debug Info */}
+                <div className="mt-4 p-2 bg-blue-900/20 rounded text-xs text-blue-300">
+                  <p>Check browser console (F12) for debug logs</p>
                 </div>
-              </div>
-              {error && (
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-sm text-red-400"
-                >
-                  {error}
-                </motion.p>
-              )}
-              <Button
-                type="submit"
-                className="w-full bg-green-600 hover:bg-green-700 text-white transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
-                disabled={loading}
+              </CardContent>
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="success" 
+              initial={{ opacity: 0, scale: 0.8 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              className="p-12 text-center space-y-4"
+            >
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
               >
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Logging in...
-                  </>
-                ) : (
-                  "Login"
-                )}
+                <CheckCircle2 className="text-green-500 h-16 w-16 mx-auto" />
+              </motion.div>
+              <h2 className="text-2xl font-bold text-white">Access Granted</h2>
+              <p className="text-gray-400 italic text-sm">Redirecting to Dashboard...</p>
+              <div className="flex justify-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500"></div>
+              </div>
+              
+              {/* Manual redirect button as backup */}
+              <Button
+                onClick={() => {
+                  console.log("🔘 Manual redirect button clicked")
+                  router.push('/dashboard')
+                }}
+                className="mt-4 bg-blue-600 hover:bg-blue-700"
+              >
+                Go to Dashboard Now
               </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Card>
     </div>
   )
 }

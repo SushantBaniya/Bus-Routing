@@ -21,6 +21,8 @@ import { useToast } from "@/hooks/use-toast"
 import { showErrorToast } from "@/components/ui/toast"
 import { isValidFutureDate } from "@/lib/utils"
 import Contributors from '@/components/Contributors'
+import { useRouter } from 'next/navigation'
+
 
 export type BusResult = {
   id: number;
@@ -48,6 +50,7 @@ type SocialLink = {
 
 
 export default function LandingPage() {
+  const router = useRouter()
   const { toast } = useToast()
   const [source, setSource] = useState('')
   const [destination, setDestination] = useState('')
@@ -744,6 +747,35 @@ export default function LandingPage() {
         onBook={handleBook}
       />
     )}
+    {/* Back to Top Button */}
+<AnimatePresence>
+  {scrollY > 400 && (
+    <motion.button
+      initial={{ opacity: 0, scale: 0.5, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.5, y: 20 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="fixed bottom-8 right-8 z-[60] p-4 rounded-full bg-green-500 text-black shadow-lg shadow-green-500/20 hover:bg-green-400 transition-colors"
+      aria-label="Scroll to top"
+    >
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width="24" 
+        height="24" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="3" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      >
+        <path d="m18 15-6-6-6 6"/>
+      </svg>
+    </motion.button>
+  )}
+</AnimatePresence>
 
     </div>
   )
