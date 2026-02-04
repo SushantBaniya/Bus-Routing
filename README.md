@@ -103,16 +103,7 @@ Safe Yatra is a comprehensive bus management system designed to optimize route p
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgements
 
-- [v0 by Vercel](https://v0.dev/)
-
-<div align="center">
-
-Made with ❤️ by Safe Yatra Team
-
-</div>
+- [v0 by Vercel](https://v0.dev//)
